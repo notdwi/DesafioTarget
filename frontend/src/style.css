@@ -1,4 +1,4 @@
-﻿@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
 
 :root {
   --bg-body: #f4f7fe;
@@ -122,7 +122,7 @@ body {
   flex-direction: column;
   justify-content: center;
 }
-.hero-card h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 1rem; position: z-index: 2; }
+.hero-card h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 1rem; position: relative; z-index: 2; }
 .hero-card p { opacity: 0.9; font-weight: 500; max-width: 65%; line-height: 1.6; font-size: 1.05rem; z-index: 2;}
 .hero-card::after {
   content: '';
