@@ -1,0 +1,4 @@
+# Configuração do GitHub Linguist
+# Ignora os arquivos do frontend no cálculo de porcentagem de linguagens do repositório,
+# garantindo que o C# apareça como a linguagem principal.
+frontend/** linguist-detectable=false
