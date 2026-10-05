@@ -7,9 +7,9 @@ export const renderInventory = () => {
       <div id="inventory-content">
         <div class="loader"></div>
       </div>
-      <hr style="border:0; border-top:1px solid rgba(255,255,255,0.05); margin: 1.5rem 0;">
-      <h3>Nova Movimentação</h3>
-      <form id="movement-form" style="margin-top: 1rem;">
+      <hr style="border:0; border-top:1px solid #e9edf7; margin: 1.5rem 0;">
+      <h3 style="color: var(--text-heading); font-size:1.1rem; margin-bottom:1rem">Nova Movimentação</h3>
+      <form id="movement-form">
         <div class="form-group">
           <label>Produto</label>
           <select id="mov-product" required></select>
@@ -54,22 +54,22 @@ export const initInventory = async () => {
       const data = await api.post('/inventory/movement', payload);
       if (data.succeeded) {
         resultDiv.innerHTML = `
-          <div class="result-box success">
-            <div class="result-title">Sucesso</div>
-            <div class="result-value">Estoque Final: ${data.finalStock}</div>
+          <div class="result-box">
+            <div class="title" style="color: #2dce89">Sucesso</div>
+            <div class="value" style="color: #2dce89">Estoque Final: ${data.finalStock}</div>
           </div>
         `;
         await loadInventoryData();
       } else {
         resultDiv.innerHTML = `
-          <div class="result-box error">
-            <div class="result-title">Erro</div>
-            <div style="font-size: 0.9rem">${data.message}</div>
+          <div class="result-box">
+            <div class="title" style="color: #f5365c">Erro</div>
+            <div class="value" style="color: #f5365c; font-size: 1rem">${data.message}</div>
           </div>
         `;
       }
     } catch (e) {
-      resultDiv.innerHTML = `<div class="result-box error">Erro de conexão</div>`;
+      resultDiv.innerHTML = `<div class="result-box"><div class="title" style="color:#f5365c">Erro de conexão</div></div>`;
     }
   });
 };
@@ -82,7 +82,7 @@ const loadInventoryData = async () => {
   try {
     const data = await api.get('/inventory');
     let html = `
-      <table class="data-table">
+      <table>
         <thead>
           <tr>
             <th>Cód</th>
@@ -95,13 +95,13 @@ const loadInventoryData = async () => {
     let options = `<option value="">Selecione...</option>`;
     
     data.forEach((p: any) => {
-      html += `<tr><td>${p.code}</td><td>${p.description}</td><td><strong>${p.stock}</strong></td></tr>`;
+      html += `<tr><td>${p.code}</td><td>${p.description}</td><td style="color:var(--primary)">${p.stock}</td></tr>`;
       options += `<option value="${p.code}">${p.description}</option>`;
     });
     
     container.innerHTML = html + `</tbody></table>`;
     select.innerHTML = options;
   } catch (e) {
-    container.innerHTML = `<p style="color: var(--danger)">Erro ao carregar estoque.</p>`;
+    container.innerHTML = `<p style="color: #f5365c">Erro ao carregar estoque.</p>`;
   }
 };
