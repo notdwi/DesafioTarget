@@ -12,5 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\DesafioTarget\DesafioTarget.csproj" />
+    <ProjectReference Include="..\..\src\DesafioTarget.Core\DesafioTarget.Core.csproj" />
   </ItemGroup>
 </Project>

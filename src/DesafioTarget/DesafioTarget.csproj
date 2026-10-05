@@ -14,4 +14,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DesafioTarget.Core\DesafioTarget.Core.csproj" />
+  </ItemGroup>
 </Project>
