@@ -15,26 +15,36 @@ Este repositório contém a solução completa para o desafio técnico da Target
 
 ## 🏛️ Arquitetura da Solução
 
-O projeto está organizado em uma arquitetura limpa e desacoplada:
+O projeto está organizado com uma separação clara entre **Backend** e **Frontend**:
 
-1. **`DesafioTarget.Core` (Class Library - .NET):**
-   - Centraliza todas as regras de negócio, cálculos financeiros (juros/multas), controle de comissões e movimentação de inventário.
-   - Totalmente desacoplada de interfaces de usuário ou frameworks.
+```
+├── backend/
+│   ├── src/
+│   │   ├── DesafioTarget/        # Aplicação Interativa Console CLI
+│   │   ├── DesafioTarget.Api/    # ASP.NET Core Minimal API + Swagger
+│   │   └── DesafioTarget.Core/   # Biblioteca de Regras de Negócio e Serviços
+│   ├── tests/
+│   │   └── DesafioTarget.Tests/  # 22 Testes Unitários Automatizados (xUnit)
+│   └── DesafioTarget.sln         # Solução .NET
+├── frontend/                     # SPA em TypeScript + Vite (Identidade Target Sistemas)
+└── README.md
+```
 
-2. **`DesafioTarget.Api` (Minimal API - .NET):**
-   - Endpoints RESTful de alta performance com suporte a CORS.
-   - Documentação interativa integrada com Swagger/OpenAPI.
+### 1. `backend/src/DesafioTarget.Core` (Regras de Negócio)
+- Centraliza toda a lógica de negócio, apuração de comissões por vendedor, controle de estoque (entradas/saídas com validações) e cálculo de juros diários (2,5% ao dia).
 
-3. **`DesafioTarget.App` (Console CLI - .NET):**
-   - Interface interativa de linha de comando com menus amigáveis para execução de todas as tarefas.
+### 2. `backend/src/DesafioTarget.Api` (API RESTful)
+- Endpoints de alta performance com suporte a CORS, documentação OpenAPI/Swagger e validações rigorosas de entrada.
 
-4. **`DesafioTarget.Tests` (xUnit Tests):**
-   - Cobertura de testes unitários automatizados validando cálculos e integridade das regras de negócio.
+### 3. `backend/src/DesafioTarget` (Console CLI)
+- Interface de linha de comando interativa para execução direta de todos os desafios no terminal.
 
-5. **`frontend` (Dashboard Web SPA):**
-   - Desenvolvido com **Vite + Vanilla TypeScript** e CSS moderno.
-   - Componentização limpa, design system responsivo com suporte a dispositivos móveis e ícones SVG.
-   - Fallback de demonstração integrado para visualização fluida na web.
+### 4. `backend/tests/DesafioTarget.Tests` (Testes xUnit)
+- Bateria de **22 testes unitários** automatizados cobrindo todos os cenários de sucesso e exceções.
+
+### 5. `frontend` (Dashboard Web SPA)
+- Desenvolvido com **Vite + Vanilla TypeScript** e CSS moderno.
+- Identidade visual autêntica da **Target Sistemas**, logo oficial, navegação interativa por abas (`Gestão`, `Comercial`, `Logística`, `Fiscal / Financeiro`), busca por vendedor e formulário de movimentação em tempo real.
 
 ---
 
@@ -49,6 +59,7 @@ O projeto está organizado em uma arquitetura limpa e desacoplada:
 ### 1. Rodar a API Backend (.NET)
 Em um terminal na raiz do projeto:
 ```bash
+cd backend
 dotnet restore
 dotnet run --project src/DesafioTarget.Api
 ```
@@ -56,7 +67,24 @@ A API estará rodando em `http://localhost:5068` (Swagger disponível em `http:/
 
 ---
 
-### 2. Rodar o Frontend Web (TypeScript + Vite)
+### 2. Rodar o Console Interativo (CLI)
+Para executar diretamente o menu interativo no terminal:
+```bash
+cd backend
+dotnet run --project src/DesafioTarget
+```
+
+---
+
+### 3. Executar os Testes Automatizados
+```bash
+cd backend
+dotnet test
+```
+
+---
+
+### 4. Rodar o Frontend Web (TypeScript + Vite)
 Em outro terminal:
 ```bash
 cd frontend
@@ -67,33 +95,18 @@ Abra o navegador em `http://localhost:5173`.
 
 ---
 
-### 3. Executar o Console Interativo (CLI)
-Caso queira testar diretamente pelo terminal:
-```bash
-dotnet run --project src/DesafioTarget.App
-```
-
----
-
-### 4. Executar os Testes Automatizados
-```bash
-dotnet test
-```
-
----
-
 ## 📡 Endpoints da API
 
 | Método | Rota | Descrição |
 | :--- | :--- | :--- |
 | `GET` | `/api/commissions` | Retorna o total de vendas e comissões calculadas por vendedor |
 | `GET` | `/api/inventory` | Consulta o estoque atualizado de todos os produtos |
-| `POST` | `/api/inventory/movement` | Realiza movimentações de entrada ou saída no estoque |
-| `POST` | `/api/interest` | Calcula juros, multa e montante total por dias de atraso |
+| `POST` | `/api/inventory/movement` | Realiza movimentações de entrada (+) ou saída (-) no estoque |
+| `POST` | `/api/interest` | Calcula juros por dias de atraso e montante total |
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 - **Backend:** C#, .NET 8, ASP.NET Core Minimal APIs, Swagger, xUnit.
-- **Frontend:** TypeScript, Vite, CSS3 Moderno (Flexbox / Grid / CSS Variables), SVG Icons.
+- **Frontend:** TypeScript, Vite, CSS3 Moderno (Design System Target Sistemas), SVG Icons.
 - **Deploy:** Cloudflare Pages & GitHub Actions CI.

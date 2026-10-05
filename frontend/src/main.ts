@@ -77,8 +77,8 @@ app.innerHTML = `
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
           </div>
           <div class="kpi-info">
-            <h4>Taxa de Juros Padrão</h4>
-            <h2>2,5% a.d.</h2>
+            <h4>Taxa de Juros por Atraso</h4>
+            <h2>2,5% ao dia</h2>
           </div>
         </div>
       </section>
@@ -321,7 +321,7 @@ const updateKPIs = () => {
   const kpiStock = document.getElementById('kpi-stock-count');
 
   if (kpiComm) kpiComm.textContent = formatMoney(totalComm);
-  if (kpiStock) kpiStock.textContent = `${totalStock} un`;
+  if (kpiStock) kpiStock.textContent = `${totalStock} unidades`;
 };
 
 const renderCommissionsTables = () => {
@@ -376,7 +376,7 @@ const renderInventoryTables = () => {
               <td>#${i.code}</td>
               <td>${i.description}</td>
               <td style="text-align: right;">
-                <span class="stock-tag ${i.stock < 20 ? 'low' : 'ok'}">${i.stock} un</span>
+                <span class="stock-tag ${i.stock < 20 ? 'low' : 'ok'}">${i.stock} unidades</span>
               </td>
             </tr>
           `).join('')}
@@ -390,7 +390,7 @@ const renderInventoryTables = () => {
 
   if (select) {
     select.innerHTML = `<option value="">Selecione o produto...</option>` +
-      cachedInventory.map(i => `<option value="${i.code}">#${i.code} - ${i.description} (${i.stock} un)</option>`).join('');
+      cachedInventory.map(i => `<option value="${i.code}">#${i.code} - ${i.description} (${i.stock} unidades)</option>`).join('');
   }
 };
 
@@ -502,7 +502,7 @@ const initInterestForm = () => {
               <strong style="color: var(--danger);">${data.lateDays} dias</strong>
             </div>
             <div style="display:flex; justify-content:space-between; margin-bottom: 0.4rem;">
-              <span style="color: var(--text-muted);">Total de Encargos (2.5% a.d.):</span>
+              <span style="color: var(--text-muted);">Total de Encargos (2,5% ao dia):</span>
               <strong style="color: var(--danger);">+ ${formatMoney(data.interest)}</strong>
             </div>
             <div style="display:flex; justify-content:space-between; padding-top: 0.6rem; border-top: 1px dashed var(--border-color); font-size: 1.1rem;">
